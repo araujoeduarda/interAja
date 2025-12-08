@@ -30,7 +30,7 @@ body {
 /* TÍTULO (CUSTOMIZE...) */
 .titulo-principal {
     background: #FF5733; /* Cor Laranja/Vermelha */
-    padding: 15px 20px;
+    padding: 10px 15px;
     margin: 0;
     font-size: 1.1em;
     text-transform: uppercase;
@@ -230,3 +230,109 @@ body {
 
 }
 
+
+
+
+
+/* ================================================= */
+/* === AJUSTES PARA TELAS MENORES QUE 768px (TABLET/CELULAR) === */
+/* ================================================= */
+@media (max-width: 768px) {
+    
+    /* TOPO: Empilha os elementos no container principal */
+    .barra-busca-container {
+        /* Desativa o Flexbox horizontal e transforma em uma coluna de itens */
+        flex-direction: column; 
+        padding: 10px 15px; /* Reduz o padding lateral */
+    }
+
+    /* TÍTULO PRINCIPAL: Ocupa toda a largura */
+    .titulo-principal {
+        font-size: 1em; /* Reduz um pouco o tamanho da fonte */
+    }
+
+    /* LOGO: Centraliza no topo */
+    .logo-placeholder {
+        margin-bottom: 10px;
+    }
+
+    /* BUSCA: Ocupa a largura total (ou quase) */
+    .barra-busca-wrapper {
+        width: 100%; /* Ocupa a largura total */
+        max-width: none; /* Remove a limitação de 600px */
+        margin: 5px 0; /* Espaçamento vertical */
+    }
+    
+    /* ÍCONES: Centraliza os ícones */
+    .icons {
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .icons span {
+        margin: 0 15px; /* Ajusta o espaçamento entre os ícones */
+    }
+}
+
+/* CONTINUA DENTRO do @media (max-width: 768px) ou em um novo bloco */
+@media (max-width: 768px) {
+    
+    /* ... (Estilos do TOPO acima) ... */
+
+    /* MENU: Permite a rolagem lateral (scroll) para muitos links */
+    .menu {
+        text-align: left; /* Alinha os links à esquerda */
+        white-space: nowrap; /* Mantém os links na mesma linha (se for o caso) */
+        overflow-x: auto; /* Adiciona barra de rolagem horizontal se necessário */
+        padding: 10px 15px; /* Adiciona padding lateral para que não encoste na borda */
+        
+        /* ADIÇÃO CRÍTICA: Esconde a barra de rolagem (opcional, para visual limpo) */
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+    /* Para navegadores WebKit (Chrome, Safari) */
+    .menu::-webkit-scrollbar {
+        display: none;
+    }
+
+    .menu a {
+        font-size: 12px; /* Reduz o tamanho da fonte para caber mais */
+        margin: 0 8px; /* Reduz a margem entre os links */
+    }
+
+    .menu a:first-child {
+        margin-left: 0; /* Garante que o primeiro item comece na borda */
+    }
+}
+
+/* CONTINUA DENTRO do @media (max-width: 768px) ou em um novo bloco */
+@media (max-width: 768px) {
+
+    /* ... (Estilos do TOPO e MENU acima) ... */
+    
+    /* PRODUTOS: Ajusta o padding do carrossel para dar espaço às setas */
+    .produtos {
+        /* Reduz o padding lateral para 40px (mantendo 10px de margem) */
+        padding: 15px 40px; 
+        gap: 10px; /* Reduz o espaçamento entre as imagens */
+    }
+
+    /* IMAGENS: Torna o tamanho da imagem mais adaptável */
+    .produtos img {
+        /* Mantém o tamanho fixo, mas reduz um pouco para caber melhor */
+        width: 130px; 
+        height: 160px;
+    }
+
+    /* SETAS: Ajusta o tamanho e posicionamento se necessário */
+    .seta {
+        width: 30px; 
+        height: 30px;
+        font-size: 18px; 
+    }
+    
+    /* NOVO: Ajustar a margem do primeiro item para compensar o padding ajustado */
+    .produtos img:first-child {
+        margin-left: 0px; /* Como reduzimos o padding do .produtos, não precisa de margem extra aqui */
+    }
+}
