@@ -30,7 +30,7 @@ body {
 /* TÍTULO (CUSTOMIZE...) */
 .titulo-principal {
     background: #FF5733; /* Cor Laranja/Vermelha */
-    padding: 15px 25px;
+    padding: 15px 20px;
     margin: 0;
     font-size: 1.1em;
     text-transform: uppercase;
@@ -125,23 +125,31 @@ body {
     min-height: 250px; 
 }
 
+/* mantém o padrão */
 .carrossel-wrapper {
-    background: #FF5733; 
-    
-    /* CORREÇÃO: Volta a ocupar 100% da largura da tela */
-    width: 100%; 
-    /* REMOVA ou COMENTE: margin: 0 auto; */
-    /* REMOVA ou COMENTE: max-width: 1400px; */
+  padding: 30px 0;
+}
 
-    box-sizing: border-box; /* Essencial para que o padding não cause scroll */
+/* mira o primeiro section.linha-produtos na página e altera só o carrossel dentro dele */
+.linha-produtos:nth-of-type(1) .carrossel-wrapper {
+  padding-top: 70px;
+}
+.linha-produtos:nth-of-type(2) .carrossel-wrapper {
+    padding-bottom: 70px; /* Aumente aqui o valor */
+}
+
+
+.carrossel-wrapper {
+    background: #FF5733;
+    width: 100%;
+    box-sizing: border-box;
     position: relative; 
-    padding: 30px 10px; 
+    padding: 10px 0; /* ZERO nas laterais */
     
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-
 
 /* A seta em si */
 /* A seta em si (regras gerais) */
@@ -218,38 +226,7 @@ body {
 /* --- RODAPÉ INFERIOR --- */
 .rodape-inferior {
     background: black;
-    padding: 20px 0;
+    padding: 25px 0;
+
 }
 
-.barra-busca-inferior {
-    background: #FF5733; 
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 15px 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.barra-busca-inferior .input-wrapper {
-    flex-grow: 1;
-    max-width: 600px;
-    margin-right: auto;
-}
-
-.barra-busca-inferior input {
-    width: 100%;
-    padding: 8px 15px;
-    border: none;
-    outline: none;
-    border-radius: 20px; 
-    font-size: 16px;
-}
-
-.icones-ajuste span {
-    color: white;
-    font-size: 24px;
-    margin-left: 20px;
-    cursor: pointer;
-}
