@@ -39,8 +39,17 @@ DB.ensure("carrinho");
 
 
 // =====================================
-// 3. MODAIS PERSONALIZADOS
+// 3. MODAIS PERSONALIZADOS (CORRIGIDO)
 // =====================================
+
+// Função para resetar o texto do botão para "OK" e fechar o modal
+function fecharEresetarModal() {
+    const modal = document.getElementById("meuModal");
+    const botao = document.getElementById("botaoModal");
+    
+    if (modal) modal.style.display = "none";
+    if (botao) botao.innerText = "OK"; 
+}
 
 // abrir modal simples (titulo, html do texto)
 function abrirModal(titulo, texto) {
@@ -53,10 +62,13 @@ function abrirModal(titulo, texto) {
     const fecharEl = document.querySelector(".fechar");
     const botao = document.getElementById("botaoModal");
 
-    if (fecharEl) fecharEl.onclick = () => modal.style.display = "none";
-    if (botao) botao.onclick = () => modal.style.display = "none";
+    // Garante que o botão seja "OK"
+    if (botao) botao.innerText = "OK";
 
-    modal.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
+    if (fecharEl) fecharEl.onclick = fecharEresetarModal;
+    if (botao) botao.onclick = fecharEresetarModal;
+
+    modal.onclick = (e) => { if (e.target === modal) fecharEresetarModal(); };
 }
 
 // MODAL DE CONFIRMAÇÃO (sim / não)
@@ -68,24 +80,18 @@ function abrirModalConfirmacao(texto, callbackSim) {
     modal.style.display = "flex";
 
     const botao = document.getElementById("botaoModal");
-    botao.innerText = "Sim";
+    botao.innerText = "Sim"; // Mudar o texto do botão para "Sim"
 
+    // Ação Sim: executa callback e reseta
     botao.onclick = () => {
-        modal.style.display = "none";
+        fecharEresetarModal(); // Fecha e reseta para 'OK'
         callbackSim();
-        botao.innerText = "OK"; // reset
     };
 
-    document.querySelector(".fechar").onclick = () => {
-        modal.style.display = "none";
-        botao.innerText = "OK";
-    };
-
+    // Fechar pelo X ou clique externo: apenas fecha e reseta
+    document.querySelector(".fechar").onclick = fecharEresetarModal;
     modal.onclick = (e) => {
-        if (e.target === modal) {
-            modal.style.display = "none";
-            botao.innerText = "OK";
-        }
+        if (e.target === modal) fecharEresetarModal();
     };
 }
 
@@ -101,30 +107,26 @@ function abrirModalInput(pergunta, callback) {
 
     modal.style.display = "flex";
 
-    botao.innerText = "Confirmar";
+    botao.innerText = "Confirmar"; // Mudar o texto do botão
+
+    // Ação Confirmar: executa callback e reseta
     botao.onclick = () => {
         const valor = document.getElementById("inputModal").value.trim();
-        modal.style.display = "none";
-        botao.innerText = "OK"; // reset
+        fecharEresetarModal(); // Fecha e reseta para 'OK'
         callback(valor);
     };
 
-    document.querySelector(".fechar").onclick = () => {
-        modal.style.display = "none";
-        botao.innerText = "OK";
-    };
+    // Fechar pelo X ou clique externo: apenas fecha e reseta
+    document.querySelector(".fechar").onclick = fecharEresetarModal;
 
     modal.onclick = (e) => {
-        if (e.target === modal) {
-            modal.style.display = "none";
-            botao.innerText = "OK";
-        }
+        if (e.target === modal) fecharEresetarModal();
     };
 }
 
 
 // =====================================
-// 4. FAVORITOS (corrigido e melhorado)
+// 4. FAVORITOS (toggle e listagem)
 // =====================================
 const favoritosBtn = document.querySelector(".icone-favoritos");
 
@@ -169,7 +171,7 @@ function abrirFavoritos() {
 
 
 // =====================================
-// CARRINHO — ATUALIZADO COM REMOVER
+// 5. CARRINHO (com remover)
 // =====================================
 const carrinhoBtn = document.querySelector(".icone-carrinho");
 
@@ -249,8 +251,7 @@ function animarBotao(btn) {
 
 
 // =====================================
-// =====================================
-// 8. INTERAÇÃO COM PRODUTOS
+// 8. INTERAÇÃO COM PRODUTOS (AÇÃO DIRETA)
 // =====================================
 document.querySelectorAll(".produtos img").forEach((img, index) => {
 
@@ -267,16 +268,11 @@ document.querySelectorAll(".produtos img").forEach((img, index) => {
     img.addEventListener("click", () => {
         const produto = produtoFromImg();
 
-        // **MUDANÇA AQUI:** Ação direta, sem modal de Confirmação
+        // Ação direta, sem modal de Confirmação
         adicionarAoCarrinho(produto);
 
         // Abre o modal de Sucesso
         abrirModal("Sucesso", `Produto "<b>${produto.nome}</b>" adicionado ao carrinho!`);
-
-        // Opcional: Adicionar uma animação ou temporizador para fechar o modal
-        // setTimeout(() => {
-        //     document.getElementById("meuModal").style.display = "none";
-        // }, 1500);
     });
 
     // BOTÃO DIREITO → FAVORITO (desktop)
@@ -284,6 +280,7 @@ document.querySelectorAll(".produtos img").forEach((img, index) => {
         e.preventDefault();
 
         const produto = produtoFromImg();
+        // A função adicionarFavorito já faz o toggle (adiciona/remove)
         adicionarFavorito(produto);
 
         // Abre o modal de Sucesso
@@ -305,3 +302,52 @@ document.querySelectorAll(".produtos img").forEach((img, index) => {
         }
     });
 });
+
+
+// =====================================
+// MODAL DE LISTAGEM (CARRINHO / FAVORITOS) (CORRIGIDO)
+// =====================================
+function abrirLista(titulo, lista, callbackRemover) {
+    const modal = document.getElementById("meuModal");
+
+    document.getElementById("tituloModal").innerText = titulo;
+
+    // Se estiver vazio
+    if (!lista || lista.length === 0) {
+        document.getElementById("textoModal").innerHTML = "<p>Nada aqui ainda.</p>";
+    } else {
+        document.getElementById("textoModal").innerHTML =
+            lista.map((item, i) => `
+                <div class="item-lista">
+                    <img src="${item.imagem}" alt="${item.nome}">
+                    <span>${item.nome}</span>
+                    <button class="btn-remover" data-index="${i}">Remover</button>
+                </div>
+            `).join("");
+    }
+
+    modal.style.display = "flex";
+
+    // Fechar modal
+    const fecharEl = document.querySelector(".fechar");
+    if (fecharEl) fecharEl.onclick = fecharEresetarModal;
+    
+    // **CORREÇÃO CRUCIAL:** Garante que o botão seja "OK" e feche o modal
+    const botao = document.getElementById("botaoModal");
+    if (botao) {
+        botao.innerText = "OK"; 
+        botao.onclick = fecharEresetarModal;
+    }
+
+    modal.onclick = (e) => {
+        if (e.target === modal) fecharEresetarModal();
+    };
+
+    // Remover itens - precisamos adicionar listeners depois do conteúdo estar no DOM
+    document.querySelectorAll(".btn-remover").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const index = btn.getAttribute("data-index");
+            callbackRemover(index);
+        });
+    });
+}
