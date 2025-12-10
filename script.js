@@ -39,16 +39,19 @@ DB.ensure("carrinho");
 
 
 // =====================================
-// 3. MODAIS PERSONALIZADOS (CORRIGIDO)
+// 3. MODAIS PERSONALIZADOS (CORRIGIDO E OTIMIZADO)
 // =====================================
 
-// Função para resetar o texto do botão para "OK" e fechar o modal
+// Função centralizada para resetar o modal
 function fecharEresetarModal() {
     const modal = document.getElementById("meuModal");
     const botao = document.getElementById("botaoModal");
     
     if (modal) modal.style.display = "none";
-    if (botao) botao.innerText = "OK"; 
+    if (botao) {
+        botao.innerText = "OK";
+        botao.style.display = 'block'; // Garante que o botão padrão volte a aparecer
+    }
 }
 
 // abrir modal simples (titulo, html do texto)
@@ -125,6 +128,61 @@ function abrirModalInput(pergunta, callback) {
 }
 
 
+// NOVO: MODAL DE ESCOLHA DE AÇÃO (MOBILE OPTIMIZED)
+function abrirModalAcoesProduto(produto) {
+    const titulo = document.getElementById("tituloModal");
+    const texto = document.getElementById("textoModal");
+    const botaoPadrao = document.getElementById("botaoModal");
+    const modal = document.getElementById("meuModal");
+
+    // 1. Configurar o modal
+    titulo.innerText = produto.nome;
+    texto.innerHTML = `<p>O que deseja fazer com "<b>${produto.nome}</b>"?</p>
+        <div id="botoesAcaoProduto" style="display:flex; justify-content:space-around; margin-top: 20px;">
+            <button id="btnAcaoCarrinho" style="padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; flex-grow: 1; margin-right: 5px;">🛒 Adicionar ao Carrinho</button>
+            <button id="btnAcaoFavoritar" style="padding: 10px; background-color: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer; flex-grow: 1; margin-left: 5px;">⭐ Favoritar</button>
+        </div>`;
+    
+    // 2. Mostrar modal
+    modal.style.display = "flex";
+    
+    // 3. Ocultar o botão padrão "OK"
+    if (botaoPadrao) botaoPadrao.style.display = 'none';
+
+    // Função de reset especial (garante que o botão padrão volta a aparecer)
+    const resetEshowBotaoPadrao = () => {
+        if (modal) modal.style.display = "none";
+        if (botaoPadrao) {
+             botaoPadrao.innerText = "OK";
+             botaoPadrao.style.display = 'block'; 
+        }
+    };
+    
+    // 4. Adicionar listeners aos novos botões
+    // Ação Carrinho
+    document.getElementById("btnAcaoCarrinho").onclick = () => {
+        adicionarAoCarrinho(produto);
+        resetEshowBotaoPadrao(); 
+        abrirModal("Sucesso", "Produto adicionado ao carrinho!"); 
+    };
+
+    // Ação Favoritar
+    document.getElementById("btnAcaoFavoritar").onclick = () => {
+        adicionarFavorito(produto);
+        resetEshowBotaoPadrao();
+        abrirModal("⭐ Favoritos", "Produto adicionado aos favoritos!"); 
+    };
+    
+    // 5. Configurar fechamento (X e clique externo)
+    const fecharEl = document.querySelector(".fechar");
+    if (fecharEl) fecharEl.onclick = resetEshowBotaoPadrao;
+
+    modal.onclick = (e) => { 
+        if (e.target === modal) resetEshowBotaoPadrao(); 
+    };
+}
+
+
 // =====================================
 // 4. FAVORITOS (toggle e listagem)
 // =====================================
@@ -143,6 +201,7 @@ function adicionarFavorito(produto) {
     const existe = favoritos.find(p => p.id === produto.id);
 
     if (existe) {
+        // ... (lógica de remoção)
         favoritos = favoritos.filter(p => p.id !== produto.id);
     } else {
         favoritos.push(produto);
@@ -251,7 +310,7 @@ function animarBotao(btn) {
 
 
 // =====================================
-// 8. INTERAÇÃO COM PRODUTOS (AÇÃO DIRETA)
+// 8. INTERAÇÃO COM PRODUTOS (NOVO FLUXO MOBILE)
 // =====================================
 document.querySelectorAll(".produtos img").forEach((img, index) => {
 
@@ -264,48 +323,18 @@ document.querySelectorAll(".produtos img").forEach((img, index) => {
         };
     }
 
-    // CLICK → ADICIONAR AO CARRINHO (Ação Direta)
+    // CLIQUE SIMPLES (TAP) → ABRE MODAL DE ESCOLHA (CARRINHO / FAVORITO)
     img.addEventListener("click", () => {
         const produto = produtoFromImg();
-
-        // Ação direta, sem modal de Confirmação
-        adicionarAoCarrinho(produto);
-
-        // Abre o modal de Sucesso
-        abrirModal("Sucesso", `Produto "<b>${produto.nome}</b>" adicionado ao carrinho!`);
+        abrirModalAcoesProduto(produto); 
     });
 
-    // BOTÃO DIREITO → FAVORITO (desktop)
-    img.addEventListener("contextmenu", (e) => {
-        e.preventDefault();
-
-        const produto = produtoFromImg();
-        // A função adicionarFavorito já faz o toggle (adiciona/remove)
-        adicionarFavorito(produto);
-
-        // Abre o modal de Sucesso
-        abrirModal("⭐ Favoritos", `Produto "<b>${produto.nome}</b>" adicionado aos favoritos!`);
-    });
-
-    // toability mobile: adicionar um toque longo também adiciona ao favoritos
-    let touchStart = 0;
-    img.addEventListener("touchstart", () => { touchStart = Date.now(); });
-    img.addEventListener("touchend", (e) => {
-        const dur = Date.now() - touchStart;
-        // se toque > 600ms consideramos "long-press" para favoritar
-        if (dur > 600) {
-            e.preventDefault();
-            const produto = produtoFromImg();
-            adicionarFavorito(produto);
-            // Abre o modal de Sucesso
-            abrirModal("⭐ Favoritos", `Produto "<b>${produto.nome}</b>" adicionado aos favoritos!`);
-        }
-    });
+    // Removido o clique direito e toque longo para evitar conflito e simplificar
 });
 
 
 // =====================================
-// MODAL DE LISTAGEM (CARRINHO / FAVORITOS) (CORRIGIDO)
+// MODAL DE LISTAGEM (CARRINHO / FAVORITOS)
 // =====================================
 function abrirLista(titulo, lista, callbackRemover) {
     const modal = document.getElementById("meuModal");
@@ -332,11 +361,12 @@ function abrirLista(titulo, lista, callbackRemover) {
     const fecharEl = document.querySelector(".fechar");
     if (fecharEl) fecharEl.onclick = fecharEresetarModal;
     
-    // **CORREÇÃO CRUCIAL:** Garante que o botão seja "OK" e feche o modal
+    // Garante que o botão seja "OK" e feche o modal
     const botao = document.getElementById("botaoModal");
     if (botao) {
         botao.innerText = "OK"; 
         botao.onclick = fecharEresetarModal;
+        botao.style.display = 'block'; // Garante que esteja visível
     }
 
     modal.onclick = (e) => {
