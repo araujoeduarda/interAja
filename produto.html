@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Produto | InterAja</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="listaCarrinho"></div>
+
+<header class="topo">
+    <h2 class="titulo-principal">CUSTOMIZE E PERSONALIZE SEU PRODUTO DA MANEIRA QUE QUISER.</h2>
+
+    <div class="barra-busca-container">
+        <div class="logo-placeholder">
+            <img src="favicon/logo.png">
+        </div>
+
+        <div class="barra-busca-wrapper">
+            <input type="text" placeholder="busque aqui seu produto">
+        </div>
+
+        <div class="icons">
+<button type="button" class="icone-favoritos">
+    <img src="favicon/favoritos.webp">
+</button>
+
+<button type="button" class="icone-usuario">
+    <img src="favicon/usuario.png">
+</button>
+
+<button type="button" class="icone-carrinho">
+    <img src="favicon/carrinho.webp">
+</button>
+
+        </div>
+    </div>
+</header>
+    <nav class="menu">
+        <a href="#">calças</a>
+        <a href="#">camisas</a>
+        <a href="#">casacos</a>
+        <a href="#">shorts</a>
+        <a href="#">calçados</a>
+    </nav>
+<main style="background:black; padding:40px 20px; min-height:70vh;">
+    <div style="max-width:900px; margin:auto; display:flex; gap:40px; flex-wrap:wrap; background:#fff; padding:30px; border-radius:20px;">
+
+        <img id="produtoImagem"
+             style="width:320px; max-width:100%; border-radius:15px; background:#f5f5f5;">
+
+        <div style="flex:1;">
+            <h1 id="produtoNome"></h1>
+
+            <p style="font-size:22px; font-weight:bold; margin:15px 0;">
+                R$ <span id="produtoPreco"></span>
+            </p>
+
+            <!-- TAMANHOS -->
+            <div style="margin:20px 0;">
+                <p style="margin-bottom:8px; font-weight:bold;">Tamanho:</p>
+
+                <div id="tamanhos" style="display:flex; gap:10px;">
+                    <button class="btn-tamanho">P</button>
+                    <button class="btn-tamanho">M</button>
+                    <button class="btn-tamanho">G</button>
+                    <button class="btn-tamanho">GG</button>
+                </div>
+            </div>
+<!-- TIPO DE TECIDO -->
+<div style="margin:20px 0;">
+    <p style="margin-bottom:8px; font-weight:bold;">Tipo de tecido:</p>
+
+    <div id="tecidos" style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn-tecido">Algodão</button>
+        <button class="btn-tecido">Seda</button>
+        <button class="btn-tecido">Linho</button>
+        <button class="btn-tecido">Lã</button>
+    </div>
+</div>
+
+<!-- COR -->
+<div style="margin:20px 0;">
+    <p style="margin-bottom:8px; font-weight:bold;">Cor:</p>
+
+    <div id="cores" style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn-cor">Azul</button>
+        <button class="btn-cor">Vermelho</button>
+        <button class="btn-cor">Verde</button>
+        <button class="btn-cor">Amarelo</button>
+        <button class="btn-cor">Preto</button>
+    </div>
+</div>
+
+            <button onclick="comprarProduto()"
+                style="padding:15px 30px; background:#FF5733; border:none; color:white;
+                border-radius:10px; font-size:16px; cursor:pointer;">
+                🛒 Comprar
+            </button>
+        </div>
+    </div>
+</main>
+
+<footer class="rodape-inferior"></footer>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const nome = params.get("nome");
+    const imagem = params.get("imagem");
+    const preco = params.get("preco");
+
+    document.getElementById("produtoNome").innerText = nome;
+    document.getElementById("produtoImagem").src = imagem;
+    document.getElementById("produtoPreco").innerText = preco;
+
+    let tamanhoSelecionado = null;
+
+    document.querySelectorAll(".btn-tamanho").forEach(btn => {
+        btn.onclick = () => {
+            document.querySelectorAll(".btn-tamanho").forEach(b => b.style.background = "#ddd");
+            btn.style.background = "#FF5733";
+            btn.style.color = "#fff";
+            tamanhoSelecionado = btn.innerText;
+        };
+    });
+
+function comprarProduto() {
+    if (!tamanhoSelecionado) {
+        alert("Selecione um tamanho!");
+        return;
+    }
+
+    if (!tecidoSelecionado) {
+        alert("Selecione o tipo de tecido!");
+        return;
+    }
+
+    if (!corSelecionada) {
+        alert("Selecione a cor!");
+        return;
+    }
+
+    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+    carrinho.push({
+        nome,
+        imagem,
+        preco,
+        tamanho: tamanhoSelecionado,
+        tecido: tecidoSelecionado,
+        cor: corSelecionada
+    });
+
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+    alert("Produto adicionado ao carrinho!");
+}
+
+    let tecidoSelecionado = null;
+let corSelecionada = null;
+
+// TECIDO
+document.querySelectorAll(".btn-tecido").forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll(".btn-tecido").forEach(b => {
+            b.style.background = "#ddd";
+            b.style.color = "#000";
+        });
+        btn.style.background = "#FF5733";
+        btn.style.color = "#fff";
+        tecidoSelecionado = btn.innerText;
+    };
+});
+
+// COR
+document.querySelectorAll(".btn-cor").forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll(".btn-cor").forEach(b => {
+            b.style.background = "#ddd";
+            b.style.color = "#000";
+        });
+        btn.style.background = "#FF5733";
+        btn.style.color = "#fff";
+        corSelecionada = btn.innerText;
+    };
+});
+
+</script>
+<script src="script.js"></script>
+
+<div id="meuModal" class="modal">
+    <div class="modal-conteudo">
+        <span class="fechar">&times;</span>
+        <h2 id="tituloModal">O que deseja fazer?</h2>
+        <p id="textoModal"></p>
+
+        <div class="botoes-modal">
+            <button id="botaoModal">OK</button> 
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+</body>
+</html>

@@ -233,7 +233,7 @@ body {
 /* CORREÇÃO DE TAMANHO: Redução das imagens */
 .produtos img {
     width: 150px; /* Mantendo o tamanho menor */
-    height: 180px; /* Mantendo o tamanho menor */
+    height: 190px; /* Mantendo o tamanho menor */
     background: white;
     padding: 0;
     border-radius: 0;
@@ -596,4 +596,142 @@ body {
 #btnFavoritar {
     background: black;
     color: white;
+}
+/* ============================= */
+/* BOTÕES DE TAMANHO – PRODUTO */
+/* ============================= */
+
+#tamanhos {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-tamanho {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    background: black;
+    color: white;
+    border: 2px solid #FF5733;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+/* Hover */
+.btn-tamanho:hover {
+    background: #FF5733;
+    color: white;
+}
+
+/* Selecionado (JS aplica background) */
+.btn-tamanho[style*="FF5733"] {
+    box-shadow: 0 0 0 2px rgba(255, 87, 51, 0.4);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .btn-tamanho {
+        width: 40px;
+        height: 40px;
+        font-size: 13px;
+    }
+}
+/* ===============================
+   BOTÕES DE VARIAÇÃO (TAMANHO / TECIDO / COR)
+================================ */
+
+.btn-tamanho,
+.btn-tecido,
+.btn-cor {
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    background: #f5f5f5;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    min-width: 60px;
+    text-align: center;
+}
+
+/* Hover */
+.btn-tamanho:hover,
+.btn-tecido:hover,
+.btn-cor:hover {
+    border-color: #FF5733;
+    color: #FF5733;
+    background: #fff;
+}
+
+/* Ativo (quando selecionado pelo JS) */
+.btn-tamanho[style*="FF5733"],
+.btn-tecido[style*="FF5733"],
+.btn-cor[style*="FF5733"] {
+    background: #FF5733 !important;
+    color: #fff !important;
+    border-color: #FF5733 !important;
+}
+
+/* ===============================
+   CORES (visual melhor)
+================================ */
+
+.btn-cor {
+    position: relative;
+    padding-left: 40px;
+}
+
+/* Bolinha da cor */
+.btn-cor::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 1px solid #333;
+}
+
+/* Cores específicas */
+.btn-cor:nth-child(1)::before { background: #007BFF; } /* Azul */
+.btn-cor:nth-child(2)::before { background: #DC3545; } /* Vermelho */
+.btn-cor:nth-child(3)::before { background: #28A745; } /* Verde */
+.btn-cor:nth-child(4)::before { background: #FFC107; } /* Amarelo */
+.btn-cor:nth-child(5)::before { background: #000; }     /* Preto */
+
+/* ===============================
+   RESPONSIVO
+================================ */
+
+@media (max-width: 600px) {
+    .btn-tamanho,
+    .btn-tecido,
+    .btn-cor {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+}
+.categoria {
+    background: black;
+    padding: 40px 20px;
+    min-height: 70vh;
+}
+
+.categoria h1 {
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: auto;
 }

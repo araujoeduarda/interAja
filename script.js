@@ -313,24 +313,20 @@ function animarBotao(btn) {
 // 8. INTERAÇÃO COM PRODUTOS (NOVO FLUXO MOBILE)
 // =====================================
 document.querySelectorAll(".produtos img").forEach((img, index) => {
-
-    // construir objeto produto dinamicamente
-    function produtoFromImg() {
-        return {
-            id: index + "-" + img.src,
-            nome: img.alt || "Produto",
-            imagem: img.src
-        };
-    }
-
-    // CLIQUE SIMPLES (TAP) → ABRE MODAL DE ESCOLHA (CARRINHO / FAVORITO)
     img.addEventListener("click", () => {
-        const produto = produtoFromImg();
-        abrirModalAcoesProduto(produto); 
-    });
 
-    // Removido o clique direito e toque longo para evitar conflito e simplificar
+        // preço fake (depois dá pra puxar de banco)
+        const preco = "89.90";
+
+        const nome = encodeURIComponent(img.alt);
+        const imagem = encodeURIComponent(img.src);
+
+        window.location.href =
+            `produto.html?nome=${nome}&imagem=${imagem}&preco=${preco}`;
+    });
 });
+
+
 
 
 // =====================================
@@ -345,14 +341,25 @@ function abrirLista(titulo, lista, callbackRemover) {
     if (!lista || lista.length === 0) {
         document.getElementById("textoModal").innerHTML = "<p>Nada aqui ainda.</p>";
     } else {
-        document.getElementById("textoModal").innerHTML =
-            lista.map((item, i) => `
-                <div class="item-lista">
-                    <img src="${item.imagem}" alt="${item.nome}">
-                    <span>${item.nome}</span>
-                    <button class="btn-remover" data-index="${i}">Remover</button>
-                </div>
-            `).join("");
+document.getElementById("textoModal").innerHTML =
+    lista.map((item, i) => `
+        <div class="item-lista" style="display:flex; gap:12px; align-items:flex-start;">
+            <img src="${item.imagem}" alt="${item.nome}" style="width:70px; border-radius:10px;">
+
+            <div style="flex:1;">
+                <strong>${item.nome}</strong>
+                <p style="margin:4px 0;">R$ ${item.preco}</p>
+                <p style="font-size:14px; color:#555;">
+                    Tamanho: <b>${item.tamanho || "-"}</b><br>
+                    Tecido: <b>${item.tecido || "-"}</b><br>
+                    Cor: <b>${item.cor || "-"}</b>
+                </p>
+            </div>
+
+            <button class="btn-remover" data-index="${i}">✖</button>
+        </div>
+    `).join("");
+
     }
 
     modal.style.display = "flex";
@@ -381,3 +388,4 @@ function abrirLista(titulo, lista, callbackRemover) {
         });
     });
 }
+
