@@ -87,11 +87,12 @@
     <p style="margin-bottom:8px; font-weight:bold;">Cor:</p>
 
     <div id="cores" style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn-cor">Azul</button>
-        <button class="btn-cor">Vermelho</button>
-        <button class="btn-cor">Verde</button>
-        <button class="btn-cor">Amarelo</button>
-        <button class="btn-cor">Preto</button>
+<button class="btn-cor" data-cor="AZUL">Azul</button>
+<button class="btn-cor" data-cor="VERMELHO">Vermelho</button>
+<button class="btn-cor" data-cor="VERDE">Verde</button>
+<button class="btn-cor" data-cor="AMARELO">Amarelo</button>
+<button class="btn-cor" data-cor="PRETO">Preto</button>
+
     </div>
 </div>
 
@@ -174,18 +175,50 @@ document.querySelectorAll(".btn-tecido").forEach(btn => {
     };
 });
 
-// COR
+// COR + TROCA DE IMAGEM
 document.querySelectorAll(".btn-cor").forEach(btn => {
     btn.onclick = () => {
+        const cor = btn.dataset.cor;
+
+        // visual
+// COR
+// COR (somente para BODY)
+document.querySelectorAll(".btn-cor").forEach(btn => {
+    btn.onclick = () => {
+
+        // visual do botão
         document.querySelectorAll(".btn-cor").forEach(b => {
             b.style.background = "#ddd";
             b.style.color = "#000";
         });
         btn.style.background = "#FF5733";
         btn.style.color = "#fff";
+
         corSelecionada = btn.innerText;
+
+        // 🔥 AQUI ESTÁ A REGRA
+        if (nome && nome.toLowerCase().includes("body")) {
+
+            const cor = corSelecionada.toLowerCase();
+
+            const imagensBody = {
+                azul: "img/BODY_AZUL.png",
+                vermelho: "img/BODY_VERMELHO.png",
+                verde: "img/BODY_VERDE.png",
+                amarelo: "img/BODY_AMARELO.png",
+                preto: "img/BODY_PRETO.png"
+            };
+
+            if (imagensBody[cor]) {
+                document.getElementById("produtoImagem").src = imagensBody[cor];
+            }
+        }
     };
 });
+
+};
+});
+
 
 </script>
 <script src="script.js"></script>
