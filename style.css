@@ -1007,3 +1007,31 @@ img {
 .modal {
   z-index: 999999 !important;
 }
+/* =====================================
+   CORREÇÃO SCROLL MODAL – MOBILE
+===================================== */
+
+@media (max-width: 768px) {
+
+  /* o fundo do modal continua fixo */
+  .modal {
+    align-items: flex-start !important;
+    overflow-y: auto !important;
+  }
+
+  /* caixa do modal */
+  .modal-preview {
+    margin: 20px auto !important;
+    max-height: calc(100vh - 40px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* corpo interno */
+  .modal-body {
+    max-height: none !important;
+    overflow: visible !important;
+    flex-direction: column;
+  }
+
+}
