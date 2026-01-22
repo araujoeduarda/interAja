@@ -753,3 +753,257 @@ body {
         left: 10px; /* aproxima da borda */
     }
 }
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-preview {
+    background: #fff;
+    width: 90%;
+    max-width: 900px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.modal-header {
+    background: linear-gradient(to right, red, orange);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    flex-wrap: wrap;
+}
+
+.preview-imagem img {
+    max-width: 350px;
+    width: 100%;
+}
+
+.preview-info p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.modal-footer {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-footer button {
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-confirmar {
+    background: #ff5733;
+    color: white;
+}
+.area-adicionar-texto {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.titulo-adicionar-texto {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.input-texto {
+  width: 80%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.btn-confirmar-texto {
+  background: #ff5a2c;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-confirmar-texto:hover {
+  opacity: 0.9;
+}
+.area-design-escolhido {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.titulo-design {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.imagem-design {
+    width: 140px;
+    border-radius: 10px;
+    background: #f5f5f5;
+    padding: 10px;
+}
+.imagem-design {
+    width: 140px;
+    border-radius: 10px;
+    background: #f5f5f5;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    border: 3px solid transparent;
+}
+
+.imagem-design:hover {
+    transform: scale(1.05);
+}
+
+.imagem-design.selecionado {
+    border: 3px solid #FF5733;
+    box-shadow: 0 0 15px rgba(255, 87, 51, 0.6);
+    transform: scale(1.05);
+}
+.biblioteca-estampas {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.estampa {
+    width: 90px;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 6px;
+    transition: 0.2s ease;
+    background: #f5f5f5;
+}
+
+.estampa img {
+    width: 100%;
+    height: 70px;          /* ALTURA FIXA IGUAL PARA TODAS */
+    object-fit: cover;     /* corta sem deformar */
+    border-radius: 6px;
+    background: #fff;
+}
+
+
+.estampa span {
+    display: block;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+.estampa:hover {
+    transform: scale(1.05);
+}
+
+.estampa.selecionada {
+    border: 2px solid #FF5733;
+    box-shadow: 0 0 10px rgba(255,87,51,0.5);
+}
+/* =====================================
+   PATCH DE RESPONSIVIDADE – NÃO ALTERA LAYOUT
+===================================== */
+
+@media (max-width: 768px) {
+
+  /* TOPO */
+  .barra-busca-container {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 10px 12px !important;
+    gap: 10px !important;
+  }
+
+  .logo-placeholder {
+    margin: 0 auto !important;
+  }
+
+  .barra-busca-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .icons {
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  /* MENU */
+  .menu {
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    text-align: left !important;
+  }
+
+  .menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* CARROSSEL */
+  .produtos {
+    padding: 10px 40px !important;
+    gap: 10px !important;
+    overflow-x: hidden !important;
+  }
+
+  .produtos img {
+    width: clamp(110px, 32vw, 150px) !important;
+    height: auto !important;
+  }
+
+  .seta {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 16px !important;
+  }
+
+  .seta-esq {
+    left: 5px !important;
+  }
+
+  .seta-dir {
+    right: 5px !important;
+  }
+}
+/* ===============================
+   CORREÇÃO DEFINITIVA MOBILE
+================================ */
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* evita imagem dominar a tela */
+.produtos img,
+#produtoImagem,
+.preview-imagem img {
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+/* garante que modais fiquem acima */
+.modal {
+  z-index: 999999 !important;
+}

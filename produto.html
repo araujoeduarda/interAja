@@ -7,50 +7,41 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="listaCarrinho"></div>
 
 <header class="topo">
     <h2 class="titulo-principal">CUSTOMIZE E PERSONALIZE SEU PRODUTO DA MANEIRA QUE QUISER.</h2>
 
     <div class="barra-busca-container">
-<div class="logo-placeholder">
-    <a href="index.html">
-        <img src="favicon/logo.png" alt="Logo">
-    </a>
-</div>
+        <div class="logo-placeholder">
+            <a href="index.html">
+                <img src="favicon/logo.png" alt="Logo">
+            </a>
+        </div>
 
         <div class="barra-busca-wrapper">
             <input type="text" placeholder="busque aqui seu produto">
         </div>
 
         <div class="icons">
-<button type="button" class="icone-favoritos">
-    <img src="favicon/favoritos.webp">
-</button>
-
-<button type="button" class="icone-usuario">
-    <img src="favicon/usuario.png">
-</button>
-
-<button type="button" class="icone-carrinho">
-    <img src="favicon/carrinho.webp">
-</button>
-
+            <button type="button"><img src="favicon/favoritos.webp"></button>
+            <button type="button"><img src="favicon/usuario.png"></button>
+            <button type="button"><img src="favicon/carrinho.webp"></button>
         </div>
     </div>
 </header>
-    <nav class="menu">
-        <a href="calcas.html">calças</a>
-        <a href="camisas.html">camisas</a>
-        <a href="casacos.html">casacos</a>
-        <a href="shorts.html">shorts</a>
-        <a href="calcados.html">calçados</a>
-    </nav>
+
+<nav class="menu">
+    <a href="calcas.html">calças</a>
+    <a href="camisas.html">camisas</a>
+    <a href="casacos.html">casacos</a>
+    <a href="shorts.html">shorts</a>
+    <a href="calcados.html">calçados</a>
+</nav>
+
 <main style="background:black; padding:40px 20px; min-height:70vh;">
     <div style="max-width:900px; margin:auto; display:flex; gap:40px; flex-wrap:wrap; background:#fff; padding:30px; border-radius:20px;">
 
-        <img id="produtoImagem"
-             style="width:320px; max-width:100%; border-radius:15px; background:#f5f5f5;">
+        <img id="produtoImagem" style="width:320px; border-radius:15px; background:#f5f5f5;">
 
         <div style="flex:1;">
             <h1 id="produtoNome"></h1>
@@ -59,43 +50,65 @@
                 R$ <span id="produtoPreco"></span>
             </p>
 
-            <!-- TAMANHOS -->
-            <div style="margin:20px 0;">
-                <p style="margin-bottom:8px; font-weight:bold;">Tamanho:</p>
-
-                <div id="tamanhos" style="display:flex; gap:10px;">
-                    <button class="btn-tamanho">P</button>
-                    <button class="btn-tamanho">M</button>
-                    <button class="btn-tamanho">G</button>
-                    <button class="btn-tamanho">GG</button>
-                </div>
+            <p><b>Tamanho:</b></p>
+            <div>
+                <button class="btn-tamanho">P</button>
+                <button class="btn-tamanho">M</button>
+                <button class="btn-tamanho">G</button>
+                <button class="btn-tamanho">GG</button>
             </div>
-<!-- TIPO DE TECIDO -->
-<div style="margin:20px 0;">
-    <p style="margin-bottom:8px; font-weight:bold;">Tipo de tecido:</p>
 
-    <div id="tecidos" style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn-tecido">Algodão</button>
-        <button class="btn-tecido">Seda</button>
-        <button class="btn-tecido">Linho</button>
-        <button class="btn-tecido">Lã</button>
+            <p style="margin-top:20px;"><b>Tecido:</b></p>
+            <div>
+                <button class="btn-tecido">Algodão</button>
+                <button class="btn-tecido">Seda</button>
+                <button class="btn-tecido">Linho</button>
+                <button class="btn-tecido">Lã</button>
+            </div>
+<p style="margin-top:20px;"><b>Cor:</b></p>
+<div>
+    <button class="btn-cor" data-cor="Azul">Azul</button>
+    <button class="btn-cor" data-cor="Vermelho">Vermelho</button>
+    <button class="btn-cor" data-cor="Verde">Verde</button>
+    <button class="btn-cor" data-cor="Amarelo">Amarelo</button>
+    <button class="btn-cor" data-cor="Preto">Preto</button>
+    <button class="btn-cor" data-cor="Branco">Branco</button>
+
+</div>
+<p style="margin-top:20px;"><b>Biblioteca de estampas:</b></p>
+
+<div class="biblioteca-estampas">
+
+    <div class="estampa" data-estampa="militar">
+        <img src="img/militar.png">
+        <span>Militar</span>
     </div>
+
+    <div class="estampa" data-estampa="girassol">
+        <img src="img/girassol.png">
+        <span>Girassol</span>
+    </div>
+
+    <div class="estampa" data-estampa="palmeira">
+        <img src="img/palmeira.png">
+        <span>Palmeira</span>
+    </div>
+
+    <div class="estampa" data-estampa="bandana">
+        <img src="img/bandana.jpg">
+        <span>Bandana</span>
+    </div>
+
+    <div class="estampa" data-estampa="florido">
+        <img src="img/florido.png">
+        <span>Florido</span>
+    </div>
+
 </div>
 
-<!-- COR -->
-<div style="margin:20px 0;">
-    <p style="margin-bottom:8px; font-weight:bold;">Cor:</p>
 
-    <div id="cores" style="display:flex; gap:10px; flex-wrap:wrap;">
-<button class="btn-cor" data-cor="AZUL">Azul</button>
-<button class="btn-cor" data-cor="VERMELHO">Vermelho</button>
-<button class="btn-cor" data-cor="VERDE">Verde</button>
-<button class="btn-cor" data-cor="AMARELO">Amarelo</button>
-<button class="btn-cor" data-cor="PRETO">Preto</button>
 
-    </div>
-</div>
-
+            <br>
             <button onclick="comprarProduto()"
                 style="padding:15px 30px; background:#FF5733; border:none; color:white;
                 border-radius:10px; font-size:16px; cursor:pointer;">
@@ -105,138 +118,159 @@
     </div>
 </main>
 
-<footer class="rodape-inferior"></footer>
+<!-- MODAL -->
+<div id="meuModal" class="modal">
+    <div class="modal-preview">
+
+        <div class="modal-header">
+            <h2>PRÉ-VISUALIZAÇÃO</h2>
+            <span class="fechar" onclick="fecharModal()">✕</span>
+        </div>
+
+        <div class="modal-body">
+            <div class="preview-imagem">
+                <img id="previewImagem">
+            </div>
+
+            <div class="preview-info">
+                <h3 id="previewNome"></h3>
+                <p><b>Preço:</b> R$ <span id="previewPreco"></span></p>
+                <p><b>Tamanho:</b> <span id="previewTamanho"></span></p>
+                <p><b>Tecido:</b> <span id="previewTecido"></span></p>
+                <p><b>Cor:</b> <span id="previewCor"></span></p>
+            </div>
+        </div>
+
+        <div class="area-adicionar-texto">
+            <p class="titulo-adicionar-texto">Adicionar texto</p>
+            <input type="text" class="input-texto" placeholder="Digite seu texto aqui">
+            <button class="btn-confirmar-texto" id="confirmarTexto">Confirmar</button>
+        </div>
+<div class="area-design-escolhido">
+
+    <p class="titulo-design">Design escolhido</p>
+
+    <img 
+        src="img/design.png" 
+        alt="Design escolhido"
+        class="imagem-design"
+    >
+
+</div>
+
+        <div class="modal-footer">
+            <button onclick="fecharModal()">Continuar editando</button>
+        </div>
+
+    </div>
+</div>
 
 <script>
-    const params = new URLSearchParams(window.location.search);
-    const nome = params.get("nome");
-    const imagem = params.get("imagem");
-    const preco = params.get("preco");
+const params = new URLSearchParams(window.location.search);
+const nome = params.get("nome");
+const imagemInicial = params.get("imagem");
+const preco = params.get("preco");
 
-    document.getElementById("produtoNome").innerText = nome;
-    document.getElementById("produtoImagem").src = imagem;
-    document.getElementById("produtoPreco").innerText = preco;
+produtoNome.innerText = nome;
+produtoImagem.src = imagemInicial;
+produtoPreco.innerText = preco;
 
-    let tamanhoSelecionado = null;
-
-    document.querySelectorAll(".btn-tamanho").forEach(btn => {
-        btn.onclick = () => {
-            document.querySelectorAll(".btn-tamanho").forEach(b => b.style.background = "#ddd");
-            btn.style.background = "#FF5733";
-            btn.style.color = "#fff";
-            tamanhoSelecionado = btn.innerText;
-        };
-    });
-
-function comprarProduto() {
-    if (!tamanhoSelecionado) {
-        alert("Selecione um tamanho!");
-        return;
-    }
-
-    if (!tecidoSelecionado) {
-        alert("Selecione o tipo de tecido!");
-        return;
-    }
-
-    if (!corSelecionada) {
-        alert("Selecione a cor!");
-        return;
-    }
-
-    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-
-    carrinho.push({
-        nome,
-        imagem,
-        preco,
-        tamanho: tamanhoSelecionado,
-        tecido: tecidoSelecionado,
-        cor: corSelecionada
-    });
-
-    localStorage.setItem("carrinho", JSON.stringify(carrinho));
-    alert("Produto adicionado ao carrinho!");
-}
-
-    let tecidoSelecionado = null;
+let tamanhoSelecionado = null;
+let tecidoSelecionado = null;
 let corSelecionada = null;
+let imagemSelecionada = imagemInicial;
 
-// TECIDO
+/* MAPA DE CORES → IMAGENS */
+const imagensPorCor = {
+    Azul: "img/body_azul.png",
+    Vermelho: "img/body_vermelho.png",
+    Verde: "img/body_verde.png",
+    Amarelo: "img/body_amarelo.png",
+    Preto: "img/body_preto.png",
+    Branco: "img/body_branco.png"
+};
+
+
+document.querySelectorAll(".btn-tamanho").forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll(".btn-tamanho").forEach(b => b.style.background="#ddd");
+        btn.style.background="#FF5733";
+        btn.style.color="#fff";
+        tamanhoSelecionado = btn.innerText;
+    };
+});
+
 document.querySelectorAll(".btn-tecido").forEach(btn => {
     btn.onclick = () => {
-        document.querySelectorAll(".btn-tecido").forEach(b => {
-            b.style.background = "#ddd";
-            b.style.color = "#000";
-        });
-        btn.style.background = "#FF5733";
-        btn.style.color = "#fff";
+        document.querySelectorAll(".btn-tecido").forEach(b => b.style.background="#ddd");
+        btn.style.background="#FF5733";
+        btn.style.color="#fff";
         tecidoSelecionado = btn.innerText;
     };
 });
 
-// COR + TROCA DE IMAGEM
 document.querySelectorAll(".btn-cor").forEach(btn => {
     btn.onclick = () => {
-        const cor = btn.dataset.cor;
+        document.querySelectorAll(".btn-cor").forEach(b => b.style.background="#ddd");
+        btn.style.background="#FF5733";
+        btn.style.color="#fff";
 
-        // visual
-// COR
-// COR (somente para BODY)
-document.querySelectorAll(".btn-cor").forEach(btn => {
-    btn.onclick = () => {
+        corSelecionada = btn.dataset.cor;
+        imagemSelecionada = imagensPorCor[corSelecionada];
+        produtoImagem.src = imagemSelecionada;
+    };
+});
 
-        // visual do botão
-        document.querySelectorAll(".btn-cor").forEach(b => {
-            b.style.background = "#ddd";
-            b.style.color = "#000";
-        });
-        btn.style.background = "#FF5733";
-        btn.style.color = "#fff";
+function comprarProduto() {
+    if (!tamanhoSelecionado || !tecidoSelecionado || !corSelecionada) {
+        alert("Selecione tamanho, tecido e cor!");
+        return;
+    }
 
-        corSelecionada = btn.innerText;
+    previewImagem.src = imagemSelecionada;
+    previewNome.innerText = nome;
+    previewPreco.innerText = preco;
+    previewTamanho.innerText = tamanhoSelecionado;
+    previewTecido.innerText = tecidoSelecionado;
+    previewCor.innerText = corSelecionada;
 
-        // 🔥 AQUI ESTÁ A REGRA
-        if (nome && nome.toLowerCase().includes("body")) {
+    meuModal.style.display = "flex";
+}
 
-            const cor = corSelecionada.toLowerCase();
+function fecharModal() {
+    meuModal.style.display = "none";
+}
 
-            const imagensBody = {
-                azul: "img/BODY_AZUL.png",
-                vermelho: "img/BODY_VERMELHO.png",
-                verde: "img/BODY_VERDE.png",
-                amarelo: "img/BODY_AMARELO.png",
-                preto: "img/BODY_PRETO.png"
-            };
+/* CONFIRMAR TEXTO (PROTÓTIPO) */
+confirmarTexto.onclick = () => {
+    previewImagem.src = "img/bodyinfantilprincipal.png";
+};
+const imagemDesign = document.querySelector(".imagem-design");
 
-            if (imagensBody[cor]) {
-                document.getElementById("produtoImagem").src = imagensBody[cor];
-            }
+imagemDesign.addEventListener("click", () => {
+    imagemDesign.classList.toggle("selecionado");
+});
+let estampaSelecionada = null;
+
+document.querySelectorAll(".estampa").forEach(item => {
+    item.onclick = () => {
+
+        // efeito visual
+        document.querySelectorAll(".estampa")
+            .forEach(e => e.classList.remove("selecionada"));
+        item.classList.add("selecionada");
+
+        estampaSelecionada = item.dataset.estampa;
+
+        // 🔥 REGRA ESPECÍFICA
+        if (estampaSelecionada === "florido") {
+            imagemSelecionada = "img/body_inicial.png";
+            produtoImagem.src = imagemSelecionada;
         }
     };
 });
 
-};
-});
-
-
 </script>
-<script src="script.js"></script>
-
-<div id="meuModal" class="modal">
-    <div class="modal-conteudo">
-        <span class="fechar">&times;</span>
-        <h2 id="tituloModal">O que deseja fazer?</h2>
-        <p id="textoModal"></p>
-
-        <div class="botoes-modal">
-            <button id="botaoModal">OK</button> 
-        </div>
-    </div>
-</div>
-
-</div>
-
 
 </body>
 </html>
